@@ -37,7 +37,7 @@ def get_ordered_updates(rules: dict[str, list], updates: list[str]):
     return valid_updates
 
 def main():
-    puzzle_input = read_puzzle_input(sample=False)
+    puzzle_input = read_puzzle_input()
     page_rules, updates = parse_input(puzzle_input)
     ordered_updates = get_ordered_updates(page_rules, updates)
     print(sum_middle_pages(ordered_updates))

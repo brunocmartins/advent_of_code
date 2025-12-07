@@ -33,7 +33,7 @@ def get_matches(puzzle_input):
     return matches
 
 def main():
-    puzzle_input = read_puzzle_input(3)
+    puzzle_input = read_puzzle_input()
     concat_puzzle_input = concat_lines(puzzle_input)
     matches = get_matches(concat_puzzle_input)
     print(get_result(matches))

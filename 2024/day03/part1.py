@@ -14,7 +14,7 @@ def get_result(matches):
     return sum([int(n1) * int(n2) for n1, n2 in matches])
 
 def main():
-    puzzle_input = read_puzzle_input(3)
+    puzzle_input = read_puzzle_input()
     
     matches = get_matches(puzzle_input)
     print(get_result(matches))

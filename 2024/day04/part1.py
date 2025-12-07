@@ -41,7 +41,7 @@ def get_matches(puzzle_input):
 
 
 def main():
-    puzzle_input = read_puzzle_input(4, sample=False)
+    puzzle_input = read_puzzle_input()
     print(get_matches(puzzle_input))
 
 

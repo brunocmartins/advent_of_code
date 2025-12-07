@@ -71,7 +71,7 @@ def order_updates(rules, invalid_updates):
     return valid_updates
 
 def main():
-    puzzle_input = read_puzzle_input(sample=False)
+    puzzle_input = read_puzzle_input()
     page_rules, updates = parse_input(puzzle_input)
     unordered_updates = get_unordered_updates(page_rules, updates)
     ordered_updates = order_updates(page_rules, unordered_updates)
