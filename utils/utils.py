@@ -8,10 +8,6 @@ import urllib.parse
 import urllib.request
 from typing import Generator
 
-# Ensure repo root is in path for imports
-_repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if _repo_root not in sys.path:
-    sys.path.insert(0, _repo_root)
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -34,7 +30,7 @@ def timing(name: str = '') -> Generator[None, None, None]:
 def _get_cookie_headers() -> str:
     with open(f"{CURRENT_DIR}/../.env") as f:
         content = f.read().strip()
-    
+
     return {"Cookie": content, "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"}
 
 def get_input(year: int, day: int) -> str:
@@ -49,7 +45,7 @@ def get_year_day() -> tuple[int, int]:
 
     if not day_s.startswith('day'):
         raise AssertionError(f'unexpected working dir: {cwd} - expected to be in a day folder')
-    
+
     # Support both old format (aoc2024) and new format (2024)
     if year_s.startswith('aoc'):
         year = int(year_s[len('aoc'):])
