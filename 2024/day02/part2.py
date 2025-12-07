@@ -19,7 +19,7 @@ def parse_report(report):
             
 
 def main():
-    puzzle_input = read_puzzle_input(2, sample=False)
+    puzzle_input = read_puzzle_input()
     parsed_input = parse_input(puzzle_input)
     print(len(parse_report(parsed_input)))
 

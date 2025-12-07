@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import time
+import urllib.parse
 import urllib.request
 from typing import Generator
 
@@ -29,7 +30,7 @@ def timing(name: str = '') -> Generator[None, None, None]:
 def _get_cookie_headers() -> str:
     with open(f"{CURRENT_DIR}/../.env") as f:
         content = f.read().strip()
-    
+
     return {"Cookie": content, "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"}
 
 def get_input(year: int, day: int) -> str:
@@ -42,16 +43,33 @@ def get_year_day() -> tuple[int, int]:
     day_s = os.path.basename(cwd)
     year_s = os.path.basename(os.path.dirname(cwd))
 
-    if not day_s.startswith('day') or not year_s.startswith('aoc'):
-        raise AssertionError(f'unexpected working dir: {cwd}')
+    if not day_s.startswith('day'):
+        raise AssertionError(f'unexpected working dir: {cwd} - expected to be in a day folder')
 
-    return int(year_s[len('aoc'):]), int(day_s[len('day'):])
+    # Support both old format (aoc2024) and new format (2024)
+    if year_s.startswith('aoc'):
+        year = int(year_s[len('aoc'):])
+    elif year_s.isdigit() and len(year_s) == 4:
+        year = int(year_s)
+    else:
+        raise AssertionError(f'unexpected working dir: {cwd} - year folder should be 4 digits or start with "aoc"')
+
+    return year, int(day_s[len('day'):])
 
 def download_input() -> int:
     parser = argparse.ArgumentParser()
-    parser.parse_args()
+    parser.add_argument('--year', '-y', type=int, help='Year of the challenge (e.g., 2024)')
+    args = parser.parse_args()
 
-    year, day = get_year_day()
+    if args.year:
+        # If year is provided via CLI, we need to get day from current directory
+        cwd = os.getcwd()
+        day_s = os.path.basename(cwd)
+        if not day_s.startswith('day'):
+            raise AssertionError(f'unexpected working dir: {cwd} - expected to be in a day folder')
+        year, day = args.year, int(day_s[len('day'):])
+    else:
+        year, day = get_year_day()
 
 
     for i in range(5):

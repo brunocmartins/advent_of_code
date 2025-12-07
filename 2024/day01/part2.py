@@ -11,7 +11,7 @@ def get_similarity_score(left_list: list, right_list: list) -> list:
     return similarity_scores
 
 def main():
-    puzzle_input = read_puzzle_input(1)
+    puzzle_input = read_puzzle_input()
     left, right = get_entry_list(puzzle_input)
     print(sum(get_similarity_score(left, right)))
 

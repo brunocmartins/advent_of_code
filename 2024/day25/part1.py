@@ -5,7 +5,7 @@ from utils.utils import timing
 
 
 def read_input():
-    infile = f"day25/{sys.argv[1]}.txt" if len(sys.argv)>=2 else 'day25/input.txt'
+    infile = f"2024/day25/{sys.argv[1]}.txt" if len(sys.argv)>=2 else '2024/day25/input.txt'
     input = open(infile).read().strip().split('\n\n')
 
     locks, keys = [], []
